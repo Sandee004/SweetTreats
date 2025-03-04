@@ -26,13 +26,13 @@ export function Navbar() {
           Sweet Treats
         </a>
 
-        <div className="hidden md:flex items-center space-x-8">
-          <nav className="flex space-x-6">
+        <div className="hidden md:flex text-xl text-white items-center space-x-8">
+          <nav className="flex space-x-10">
             {["About", "Products", "About", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-text hover:text-primary transition duration-300"
+                className="text-text hover:font-bold transition duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   handleSmoothScroll(item.toLowerCase());
@@ -62,8 +62,7 @@ export function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                //className="text-text  transition duration-300"
-                className="block w-full text-left py-2 px-4 text-text hover:text-primary transition duration-300"
+                className="block w-full text-left py-2 px-4 hover:font-bold hover:bg-red-500 hover:text-white transition duration-300"
                 onClick={(e) => {
                   e.preventDefault();
                   handleSmoothScroll(item.toLowerCase());

@@ -1,115 +1,226 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import FloatingPastry from "./FloatingPastry";
 import { Navbar } from "./Navbar";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Intro = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [orderDetails, setOrderDetails] = useState("");
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
   return (
     <>
       <Navbar />
-      <section id="home" className="relative bg-cover bg-center py-32">
+
+      <section
+        id="home"
+        className="relative bg-[url('/your-background-image.jpg')] bg-cover bg-center min-h-screen flex items-center justify-center"
+      >
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-5xl font-bold text-white mb-6">
+        <div className="container mx-auto px-4 text-center relative z-10 animate-fade-in">
+          <h1 className="text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
             Indulge in Sweet Perfection
           </h1>
-          <p className="text-xl text-white mb-8">
+          <p className="text-2xl text-gray-200 mb-8 max-w-xl mx-auto leading-relaxed">
             Handcrafted pastries and cakes for every occasion
           </p>
-          <Link
-            to="#"
-            className="bg-red-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-red-700 transition duration-300"
+          <button
+            onClick={toggleModal}
+            className="bg-red-600 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105"
           >
             Order Now
-          </Link>
+          </button>
         </div>
 
-        <FloatingPastry className="top-[10%] left-[15%]" />
-        <FloatingPastry className="top-[20%] right-[10%]" />
-        <FloatingPastry className="bottom-[15%] left-[25%]" />
-        <FloatingPastry className="bottom-[20%] right-[30%]" />
-        <FloatingPastry className="top-[5%] left-[70%]" />
-        <FloatingPastry className="top-[35%] right-[60%]" />
-        <FloatingPastry className="bottom-[5%] left-[50%]" />
-        <FloatingPastry className="bottom-[30%] right-[5%]" />
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+              <h2 className="text-2xl font-bold mb-4">Place Your Order</h2>
+
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="w-full p-3 border rounded mb-3 focus:outline-red-600"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+
+              <textarea
+                placeholder="Describe your order..."
+                className="w-full p-3 border rounded mb-3 focus:outline-red-600"
+                rows={4}
+                value={orderDetails}
+                onChange={(e) => setOrderDetails(e.target.value)}
+              ></textarea>
+
+              <div className="flex justify-between">
+                <button
+                  onClick={toggleModal}
+                  className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    alert(`Order placed by ${name}: ${orderDetails}`);
+                    toggleModal();
+                  }}
+                  className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                >
+                  Submit Order
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <FloatingPastry className="top-[10%] left-[15%]" type="donut" />
+        <FloatingPastry className="top-[20%] right-[10%]" type="cupcake" />
+        <FloatingPastry className="bottom-[15%] left-[25%]" type="croissant" />
+        <FloatingPastry className="bottom-[20%] right-[30%]" type="pretzel" />
+        <FloatingPastry className="top-[5%] left-[70%]" type="cookie" />
+        <FloatingPastry className="top-[35%] right-[60%]" type="donut" />
+        <FloatingPastry className="bottom-[5%] left-[50%]" type="cookie" />
+        <FloatingPastry className="bottom-[30%] right-[5%]" type="cupcake" />
       </section>
 
-      <section id="products" className="py-20">
+      <section id="products" className="py-24 bg-gray-100 animate-fade-in">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-red-600 mb-12">
+          <h2 className="text-4xl font-bold text-center text-red-600 mb-12">
             Our Featured Delights
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[
-              "Classic Red Velvet",
-              "Strawberry Shortcake",
-              "Chocolate Dream",
+              {
+                name: "Classic Red Velvet",
+                imageUrl:
+                  "https://images.pexels.com/photos/4110005/pexels-photo-4110005.jpeg",
+              },
+              {
+                name: "Strawberry Shortcake",
+                imageUrl:
+                  "https://images.pexels.com/photos/853006/pexels-photo-853006.jpeg",
+              },
+              {
+                name: "Chocolate Dream",
+                imageUrl:
+                  "https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg",
+              },
+              {
+                name: "Cookies & Cream Bliss",
+                imageUrl:
+                  "https://images.pexels.com/photos/853006/pexels-photo-853006.jpeg",
+              },
+              {
+                name: "Lemon Raspberry Zest",
+                imageUrl:
+                  "https://images.pexels.com/photos/140831/pexels-photo-140831.jpeg",
+              },
+              {
+                name: "Salted Caramel Indulgence",
+                imageUrl:
+                  "https://images.pexels.com/photos/4110005/pexels-photo-4110005.jpeg",
+              },
+              {
+                name: "Mocha Fudge Temptation",
+                imageUrl:
+                  "https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg",
+              },
+              {
+                name: "Mango Passionfruit Delight",
+                imageUrl:
+                  "https://images.pexels.com/photos/140831/pexels-photo-140831.jpeg",
+              },
+              {
+                name: "Peanut Butter Swirl",
+                imageUrl:
+                  "https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg",
+              },
+              {
+                name: "Tiramisu Elegance",
+                imageUrl:
+                  "https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg",
+              },
+              {
+                name: "Almond Honey Drizzle",
+                imageUrl:
+                  "https://images.pexels.com/photos/140831/pexels-photo-140831.jpeg",
+              },
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md py-4 overflow-hidden"
+                className="bg-white rounded-lg shadow-md transform transition duration-300 hover:scale-105 p-6 text-center"
               >
-                <div className="w-10 h-10 bg-green-500"></div>
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-red-600 mb-2">
-                    {item}
-                  </h3>
-                  <p className="text-gray-600">
-                    Delicious and freshly baked every day
-                  </p>
-                </div>
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="w-20 h-20 mx-auto rounded-full mb-4 object-cover"
+                />
+                <h3 className="text-2xl font-semibold text-red-600 mb-2">
+                  {item.name}
+                </h3>
+                <p className="text-gray-700">
+                  Delicious and freshly baked every day
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="about" className="bg-red-600 text-white py-20">
+      <section
+        id="about"
+        className="bg-red-600 text-white py-24 animate-fade-in"
+      >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">About Sweet Delights</h2>
-          <p className="max-w-3xl mx-auto text-lg">
+          <h2 className="text-4xl font-bold mb-6">About Sweet Delights</h2>
+          <p className="max-w-3xl mx-auto text-lg leading-relaxed">
             At Sweet Delights, we believe every day deserves a little sweetness.
             Our passion lies in crafting irresistible pastries and cakes that
-            spark joy with every bite. Using only the finest ingredients, our
-            skilled bakers blend tradition with creativity to bring you treats
-            that are as beautiful as they are delicious. From flaky croissants
-            to decadent cakes, each creation is made with love and care,
-            ensuring a delightful experience in every crumb. Come taste the
-            magic—we’re here to make your day a little sweeter!
+            bring joy with every bite. Using only the finest ingredients, we
+            blend tradition with creativity to offer treats that are as
+            beautiful as they are delicious.
           </p>
         </div>
       </section>
 
-      <footer id="contact" className="bg-gray-100 py-10">
+      <footer
+        id="contact"
+        className="bg-gray-200 py-14 text-gray-800 animate-fade-in"
+      >
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-between">
             <div className="w-full md:w-1/3 mb-6 md:mb-0">
-              <h3 className="text-xl font-semibold text-red-600 mb-4">
+              <h3 className="text-2xl font-semibold text-red-600 mb-4">
                 Sweet Delights
               </h3>
-              <p className="text-gray-600">
-                Bringing sweetness to your life, one bite at a time.
-              </p>
+              <p>Bringing sweetness to your life, one bite at a time.</p>
             </div>
+
             <div className="w-full md:w-1/3 mb-6 md:mb-0">
-              <h3 className="text-xl font-semibold text-red-600 mb-4">
+              <h3 className="text-2xl font-semibold text-red-600 mb-4">
                 Contact Us
               </h3>
-              <ul className="text-gray-600">
+              <ul>
                 <li className="flex items-center mb-2">
-                  <Phone size={18} className="mr-2" /> (123) 456-7890
+                  <Phone size={20} className="mr-2 text-red-600" /> (123)
+                  456-7890
                 </li>
                 <li className="flex items-center mb-2">
-                  <Mail size={18} className="mr-2" /> info@sweetdelights.com
+                  <Mail size={20} className="mr-2 text-red-600" />{" "}
+                  info@sweetdelights.com
                 </li>
                 <li className="flex items-center">
-                  <MapPin size={18} className="mr-2" /> 123 Bakery St, Sweet
-                  City
+                  <MapPin size={20} className="mr-2 text-red-600" /> 123 Bakery
+                  St, Sweet City
                 </li>
               </ul>
             </div>
+
             <div className="w-full md:w-1/3">
-              <h3 className="text-xl font-semibold text-red-600 mb-4">
+              <h3 className="text-2xl font-semibold text-red-600 mb-4">
                 Follow Us
               </h3>
               <div className="flex space-x-4">
